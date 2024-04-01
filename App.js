@@ -5,17 +5,19 @@ import Page1 from "./Page1";
 import Page2 from "./Page2";
 import Connecter from "./Connecter";
 import Inscrire from "./Inscrire";
+import EditProfil from "./EditProfil";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Page1">
+      <Stack.Navigator initialRouteName="EditProfil">
         <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={Page2} />
         <Stack.Screen name="Connecter" component={Connecter} />
         <Stack.Screen name="Inscrire" component={Inscrire} />
+        <Stack.Screen name="EditProfil" component={EditProfil} />
       </Stack.Navigator>
     </NavigationContainer>
   );
