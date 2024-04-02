@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TextInput, TouchableOpacity, Alert } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 export default function Connecter() {
+  const navigation = useNavigation();
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-
+  const screenWidth = Dimensions.get('window').width;
   const handleEmailChange = (text) => {
     setEmailValue(text);
   };
@@ -46,12 +47,8 @@ export default function Connecter() {
   return (
     <View style={styles.container}>
     <Text style={styles.image}>Connexion</Text>
-  
-    <Image
-      source={require('./assets/Rectangle2.png')}
-      style={styles.image2}
-      resizeMode="cover"
-    />
+  <View style={[styles.rectangle, { width: screenWidth }]}>
+    
     <Image
       source={require('./assets/Ellipse.png')}
       style={styles.image3}
@@ -60,13 +57,14 @@ export default function Connecter() {
       source={require('./assets/traveltokICONE.png')}
       style={styles.image4}
     />
-  
+   <Text style={styles.Email}> Votre Email</Text>
     <View style={styles.inputContainer1}>
      
       <Image
         source={require('./assets/email 5.png')}
         style={styles.icon}
       />
+     
       <TextInput
         style={styles.input}
         value={emailValue}
@@ -75,7 +73,7 @@ export default function Connecter() {
         keyboardType="email-address"
       />
     </View>
-  
+    <Text style={styles.Mot_de_passe}> Votre Mot de passe</Text>
     <View style={styles.inputContainer3}>
      
       <Image
@@ -91,9 +89,12 @@ export default function Connecter() {
       />
     </View>
   
-    <TouchableOpacity style={styles.button} onPress={handleConnect}>
-      <Text style={styles.buttonText}>Se Connecter</Text>
-    </TouchableOpacity>
+    <TouchableOpacity style={styles.button} onPress={() => {
+  handleConnect();
+  navigation.navigate('Profil');
+}}>
+  <Text style={styles.buttonText}>Se Connecter</Text>
+</TouchableOpacity>
   
     <Text style={styles.text3}>ou connectez-vous avec</Text>
   
@@ -112,6 +113,7 @@ export default function Connecter() {
       />
       <Text style={styles.buttonText}>Facebook</Text>
     </TouchableOpacity>
+  </View>
   </View>
   );
 }
@@ -143,27 +145,21 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   image3: {
-    position: 'absolute',
-    top: 170,
+    position: 'absolute', 
+    top: -20, 
     alignSelf: 'center',
   },
   image4: {
-    position: 'absolute',
-    top: 178,
+    position: 'absolute', 
+    top: -13, 
     alignSelf: 'center',
   },
-  nom: {
-    position: 'absolute',
-    top: 256,
-    left: 60,
-    color: '#F0833D',
-    fontSize: 12,
-  },
+  
   inputContainer1: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 277,
+    top: 93,
     left: 51,
     backgroundColor: 'white',
     width: 300,
@@ -182,15 +178,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   Email: {
-    position: 'absolute',
-    top: 256,
-    left: 60,
-    color: '#F0833D',
-    fontSize: 12,
+    position: 'absolute', 
+    top: 72,
+    left:68,
+   
+    color:'#F0833D',
+    fontSize:12,
   },
   Mot_de_passe: {
     position: 'absolute',
-    top: 325,
+    top: 147,
     left: 59,
     color: '#F0833D',
     fontSize: 12,
@@ -199,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 350,
+    top: 167,
     left: 51,
     backgroundColor: 'white',
     width: 300,
@@ -216,7 +213,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 147,
     height: 35,
-    top: 450,
+    top: 234,
     alignSelf: 'center',
   },
   buttonText: {
@@ -225,22 +222,11 @@ const styles = StyleSheet.create({
   },
   text3: {
     position: 'absolute',
-    top: 550,
+    top: 309,
     color: '#26425A',
     alignSelf: 'center',
   },
-  text4: {
-    position: 'absolute',
-    top: 616,
-    left: 237,
-    color: '#F0833D',
-  },
-  text5: {
-    position: 'absolute',
-    top: 690,
-    alignSelf: 'center',
-    color: '#26425A',
-  },
+
   buttong: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -251,7 +237,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 125,
     height: 35,
-    top: 630,
+    top: 363,
     left: 55,
   },
   buttonIcon: {
@@ -267,12 +253,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 125,
     height: 35,
-    top: 630,
+    top: 363,
     left: 230,
   },
   errorText: {
     color: 'red',
     fontSize: 12,
     marginLeft: 10, // Ajoute une marge à gauche pour laisser de l'espace par rapport au champ de saisie
+  },
+  rectangle: {
+    height: 700,
+    top: 184,
+    position: 'absolute', 
+    backgroundColor: '#FFFFFF',  
+    borderTopRightRadius: 58,
+    borderTopLeftRadius:58,
   },
 });

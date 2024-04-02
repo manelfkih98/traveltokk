@@ -55,10 +55,7 @@ export default function EditProfil() {
           style={styles.image}
         />
 
-<Image
-          source={require('./assets/en-arriere.png')}
-          style={styles.imager}
-        />
+
         <View style={styles.imageContainer}>
   <Image 
         source={require('./assets/OIP 1.png')} 

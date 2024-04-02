@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Inscrire() {
- 
+  const screenWidth = Dimensions.get('window').width;
   const [email, setEmail] = useState('');
   const [nom, setNom] = useState('');
   const [password, setPassword] = useState('');
@@ -59,18 +59,14 @@ if (!isValidEmail(email)) {
       isValid = false;
       Alert.alert('Erreur', 'Veuillez saisir une adresse email valide');
     }
-    // Proceed with sign up process
-    // Your sign-up logic here
+   
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.image}> Créer un nouveau compte</Text>
-      <Image
-        source={require('./assets/Rectangle2.png')}
-        style={styles.image2}
-        resizeMode="cover"
-      />
+     <View style={[styles.rectangle, { width: screenWidth }]}>
+      
       <Image
         source={require('./assets/Ellipse.png')}
         style={styles.image3}
@@ -87,7 +83,7 @@ if (!isValidEmail(email)) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter your name"
+          placeholder="Enter votre nom "
           value={nom}
           onChangeText={(text) => handleInputChange(text, 'nom')}
         />
@@ -100,7 +96,7 @@ if (!isValidEmail(email)) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter your email"
+          placeholder="Enter votre email "
           value={email}
           onChangeText={(text) => handleInputChange(text, 'email')}
           keyboardType="email-address"
@@ -121,7 +117,7 @@ if (!isValidEmail(email)) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter your password"
+          placeholder="Enter votre mot de passe"
           secureTextEntry={true}
           value={password}
           onChangeText={(text) => handleInputChange(text, 'password')}
@@ -135,7 +131,7 @@ if (!isValidEmail(email)) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Confirm your password"
+          placeholder="Confirmer votre mot de passe"
           secureTextEntry={true}
           value={confirmPassword}
           onChangeText={(text) => handleInputChange(text, 'confirmPassword')}
@@ -163,14 +159,23 @@ if (!isValidEmail(email)) {
         <Text style={styles.buttonText}>Facebook</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 0,
+   
     backgroundColor: '#4369B0',
    
+  },
+  rectangle: {
+    height: 700,
+    top: 184,
+    position: 'absolute', 
+    backgroundColor: '#FFFFFF',  
+    borderTopRightRadius: 58,
+    borderTopLeftRadius:58,
   },
   centeredContent: {
      alignItems: 'center', // Centrage vertical
@@ -181,7 +186,8 @@ const styles = StyleSheet.create({
     color: 'blue', 
   },
   image: {
-    marginTop: 80, 
+    position: 'absolute', 
+    top: 100,  
     alignSelf: 'center',
     fontSize:20,
     color:"#FFFFFF"
@@ -196,17 +202,17 @@ const styles = StyleSheet.create({
   },
   image3:{
     position: 'absolute', 
-    top: 125, 
+    top: -20, 
     alignSelf: 'center',
   },
   image4:{
     position: 'absolute', 
-    top: 135, 
+    top: -13, 
     alignSelf: 'center',
   },
   nom:{
     position: 'absolute', 
-    top: 225, 
+    top: 72, 
     left:60,
     color:'#F0833D',
     fontSize:12,
@@ -216,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 250,
+    top: 93,
     left: 51,
     backgroundColor: 'white',
     width: 300,
@@ -237,7 +243,7 @@ const styles = StyleSheet.create({
   },
   Email:{
     position: 'absolute', 
-    top: 300,
+    top: 141,
     left:59,
    
     color:'#F0833D',
@@ -246,7 +252,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 325,
+    top: 163,
     left: 51,
     backgroundColor: 'white',
     width: 300,
@@ -257,7 +263,7 @@ const styles = StyleSheet.create({
   },
   Mot_de_passe:{
     position: 'absolute', 
-    top: 370, 
+    top: 212, 
     left:59,
     color:'#F0833D',
     fontSize:12,
@@ -266,7 +272,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 400,
+    top: 237,
     left: 51,
     backgroundColor: 'white',
     width: 300,
@@ -278,7 +284,7 @@ const styles = StyleSheet.create({
   Confirmez:{
     position: 'absolute', 
 
-    top: 450,
+    top: 285,
     left:59,
     color:'#F0833D',
     fontSize:12,
@@ -287,7 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    top: 475,
+    top: 306,
     left: 51,
    
     backgroundColor: 'white',
@@ -305,7 +311,7 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     width:147,
     height:35,
-    top: 610,
+    top: 413,
    
     alignSelf: 'center',
   },
@@ -315,19 +321,19 @@ const styles = StyleSheet.create({
     },
     text3:{
       position: 'absolute', 
-      top: 675,
+      top: 460,
       left:51,
       color:'#26425A'
     },
     text4:{
       position: 'absolute', 
-      top: 675,
+      top: 460,
       left:237,
       color:'#F0833D'
     },
     text5:{
       position: 'absolute', 
-      top: 710,
+      top: 500,
       alignSelf: 'center',
       color:'#26425A'
     }
@@ -342,7 +348,7 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     width:125,
     height:35,
-    top: 750,
+    top: 550,
     left:55,
   },
   buttonIcon: {
@@ -359,7 +365,7 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     width:125,
     height:35,
-    top: 750,
+    top: 550,
     left:230,
     flexDirection: 'row', 
   },
@@ -384,7 +390,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#878787',
     alignSelf: 'center',
-    top:540,
+    top:358,
     left: 51,
   },
   profileImage: {
