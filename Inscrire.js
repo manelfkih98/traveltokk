@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TextInput, TouchableOpacity, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import * as AuthSession from 'expo-auth-session';
+
 
 export default function Inscrire() {
   const screenWidth = Dimensions.get('window').width;
@@ -26,6 +28,24 @@ export default function Inscrire() {
     }
   };
 
+  /*const handleChooseImage = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  
+    if (permissionResult.granted === false) {
+      Alert.alert('Permission Denied', 'Permission to access camera is required!');
+      return;
+    }
+  
+    const pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true, // Vous pouvez spécifier d'autres options ici
+    });
+  
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+  
+    setProfileImage(pickerResult.uri);
+  };*/
   const handleChooseImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -35,6 +55,7 @@ export default function Inscrire() {
    // }
 
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    console.log(pickerResult)
 
     if (pickerResult.cancelled === true) {
       return;
@@ -42,7 +63,22 @@ export default function Inscrire() {
 
     setProfileImage(pickerResult.uri);
   };
-
+  const handleGoogleSignIn = async () => {
+    // Endpoint pour l'authentification Google
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${1}&redirect_uri=${AuthSession.getRedirectUrl()}`;
+  
+    // Ouvre le navigateur pour l'authentification
+    const response = await AuthSession.startAsync({ authUrl });
+  
+    if (response.type === 'success') {
+      const { params } = response;
+      const { code } = params;
+  
+      // Utilisez le code d'authentification pour obtenir un jeton d'accès
+      // Vous pouvez envoyer ce jeton d'accès à votre backend pour authentifier l'utilisateur
+    }
+  };
+  
   const handleSignUp = () => {
     // Perform validation
     if (!email || !password || !confirmPassword || !nom) {
@@ -144,13 +180,13 @@ if (!isValidEmail(email)) {
       <Text style={styles.text4} onPress={() => navigation.navigate('Connecter')}> Se Connecter</Text>
 
       <Text style={styles.text5}> ou inscrivez-vous avec</Text>
-      <TouchableOpacity style={styles.buttong}>
-        <Image
-          source={require('./assets/googleIcon.png')}
-          style={styles.buttonIcon}
-        />
-        <Text style={styles.buttonText}>Google</Text>
-      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttong} onPress={handleGoogleSignIn}>
+  <Image
+    source={require('./assets/googleIcon.png')}
+    style={styles.buttonIcon}
+  />
+  <Text style={styles.buttonText}>Google</Text>
+</TouchableOpacity>
       <TouchableOpacity style={styles.buttonf}>
         <Image
           source={require('./assets/facebookIcon.png')}
