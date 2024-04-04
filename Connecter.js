@@ -41,6 +41,7 @@ export default function Connecter() {
     if (validateFields()) {
       console.log('Email:', emailValue);
       console.log('Mot de passe:', passwordValue);
+      navigation.navigate('Profil');
     }
   };
 
@@ -90,8 +91,8 @@ export default function Connecter() {
     </View>
   
     <TouchableOpacity style={styles.button} onPress={() => {
-  handleConnect();
-  navigation.navigate('Profil');
+  handleConnect()
+  
 }}>
   <Text style={styles.buttonText}>Se Connecter</Text>
 </TouchableOpacity>
